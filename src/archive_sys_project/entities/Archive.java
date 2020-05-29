@@ -140,17 +140,20 @@ public class Archive {
                 return false;
             }
 
-            List<String> rawData = saveInternal();
-
-            String str = "";
-
-            for (String s : rawData) {
-                str += s;
-            }
-
-            writeStringToFile(f, str);
-
         }
+
+        List<String> rawData = saveInternal();
+
+        String str = "";
+
+        for (String s : rawData) {
+            str += s;
+        }
+
+        writeStringToFile(f, str);
+
+        this.file = f;
+
         return true;
     }
 
