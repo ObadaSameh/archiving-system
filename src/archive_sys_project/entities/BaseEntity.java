@@ -5,6 +5,8 @@
  */
 package archive_sys_project.entities;
 
+import java.util.List;
+
 /**
  *
  * @author sameh
@@ -49,4 +51,21 @@ public abstract class BaseEntity {
         newEntity.setName(name);
     }
 
+    public void serializeProps(List<String> rawData) {
+        rawData.add(id.toString());
+        rawData.add(name);
+    }
+
+    public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
+        if (instance == null) {
+            throw new RuntimeException("abstract must receive instance from derived classes");
+        }
+
+        instance.setId(Integer.parseInt(rawData.remove(0)));
+        instance.setName(rawData.remove(0));
+        return instance;
+    }
+
+    
+    
 }

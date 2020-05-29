@@ -5,6 +5,7 @@ import archive_sys_project.entities.Document;
 import archive_sys_project.entities.Tag;
 import archive_sys_project.entities.Topic;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,14 +34,48 @@ public class Archive {
     private List<Topic> topics;
     private List<Category> categories;
 
+    private static Archive loadInternal(Archive archive, List<String> rawData) {
+
+        archive.currentIndex = Integer.parseInt(rawData.remove(0));
+
+    }
+
+    private List<String> saveInternal() {
+        List<String> rawData = new ArrayList<>();
+
+        rawData.add(currentIndex + "");
+
+        rawData.add(topics.size() + "");
+        for (BaseEntity e : topics) {
+            e.serializeProps(rawData);
+        }
+
+        rawData.add(categories.size() + "");
+        for (BaseEntity e : categories) {
+            e.serializeProps(rawData);
+        }
+
+        rawData.add(tags.size() + "");
+        for (BaseEntity e : tags) {
+            e.serializeProps(rawData);
+        }
+
+        rawData.add(documents.size() + "");
+        for (BaseEntity e : documents) {
+            e.serializeProps(rawData);
+        }
+
+    }
+
     public static Archive fromFile(File file) {
         try {
 
-            Archive arc = new Archive();
-
+            Archive archive = new Archive();
+            archive.file = file;
             List<String> s = Files.readAllLines(Paths.get(file.getPath()));
 
-            return arc;
+            return loadInternal(archive, s);
+
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -64,7 +99,7 @@ public class Archive {
 
         if (f == null) {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Image");
+            fileChooser.setTitle("Save Archive");
 //            System.out.println(pic.getId());
             f = fileChooser.showSaveDialog(stage);
 
@@ -72,8 +107,32 @@ public class Archive {
                 return false;
             }
 
+            List<String> rawData = saveInternal();
+
+            String str = "";
+
+            for (String s : rawData) {
+                str += s;
+            }
+
+            writeStringToFile(f, str);
+
         }
         return true;
+    }
+
+    private static void writeStringToFile(File f, String str) {
+
+        try {
+
+            FileWriter fw = new FileWriter(f);
+            fw.write(str);
+            fw.close();
+
+        } catch (IOException iox) {
+            throw new RuntimeException(iox);
+        }
+
     }
 
     /**
