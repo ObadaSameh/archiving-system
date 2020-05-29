@@ -22,6 +22,6 @@ public interface CrudInterface<T extends BaseEntity> {
 
     List<T> getAll();
 
-    List<T> getOne(Integer id);
+    T getOne(Integer id);
 
 }

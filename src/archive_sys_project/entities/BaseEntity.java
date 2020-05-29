@@ -9,7 +9,7 @@ package archive_sys_project.entities;
  *
  * @author sameh
  */
-public class BaseEntity  {
+public abstract class BaseEntity {
 
     /**
      * @return the id
@@ -38,11 +38,15 @@ public class BaseEntity  {
     public void setName(String name) {
         this.name = name;
     }
-    
-     private Integer id;
+
+    private Integer id;
     private String name;
-    
-    
+
+    public abstract BaseEntity clone();
+
+    protected void cloneBaseEntityData(BaseEntity newEntity) {
+        newEntity.setId(id);
+        newEntity.setName(name);
+    }
+
 }
-
-

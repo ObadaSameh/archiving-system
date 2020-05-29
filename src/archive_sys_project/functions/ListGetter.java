@@ -3,20 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package archive_sys_project.entities;
+package archive_sys_project.functions;
+
+import java.util.List;
 
 /**
  *
  * @author sameh
- */
-public class Tag extends BaseEntity {
-
-    @Override
-    public BaseEntity clone() {
-        Tag c = new Tag();
-
-        cloneBaseEntityData(c);
-
-        return c;
+ */  
+public  interface ListGetter<T> {
+        List<T> getList();
     }
-}

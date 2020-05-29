@@ -12,10 +12,26 @@ import java.util.List;
  * @author sameh
  */
 public class Document extends BaseEntity {
-
+    
     private Integer categoryId;
     private Integer topicId;
     private List<Integer> tagsIds;
+    
+    private String visibleName;
+    
+    @Override
+    public BaseEntity clone() {
+        Document c = new Document();
+        
+        cloneBaseEntityData(c);
+        
+        c.setCategoryId(categoryId);
+        c.setTopicId(topicId);
+        c.setTagsIds(tagsIds.subList(0, tagsIds.size() - 1));
+        c.setVisibleName(visibleName);
+        
+        return c;
+    }
 
     /**
      * @return the categoryId
@@ -59,6 +75,18 @@ public class Document extends BaseEntity {
         this.tagsIds = tagsIds;
     }
 
-    
+    /**
+     * @return the visibleName
+     */
+    public String getVisibleName() {
+        return visibleName;
+    }
 
+    /**
+     * @param visibleName the visibleName to set
+     */
+    private void setVisibleName(String visibleName) {
+        this.visibleName = visibleName;
+    }
+    
 }

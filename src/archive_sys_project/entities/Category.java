@@ -10,5 +10,14 @@ package archive_sys_project.entities;
  * @author sameh
  */
 public class Category extends BaseEntity{
+
+    @Override
+    public BaseEntity clone() {
+        Category c = new Category();
+        
+        cloneBaseEntityData(c);
+        
+        return c;
+    }
     
 }

@@ -11,21 +11,27 @@ package archive_sys_project.entities;
  */
 public class Topic extends BaseEntity {
 
-    private String storageFolder;
+//    private String storageFolder;
+    @Override
+    public BaseEntity clone() {
+        Topic c = new Topic();
 
-    /**
-     * @return the storageFolder
-     */
-    public String getStorageFolder() {
-        return storageFolder;
+        cloneBaseEntityData(c);
+
+        return c;
     }
 
-    /**
-     * @param storageFolder the storageFolder to set
-     */
-    public void setStorageFolder(String storageFolder) {
-        this.storageFolder = storageFolder;
-    }
-
-    
+//    /**
+//     * @return the storageFolder
+//     */
+//    public String getStorageFolder() {
+//        return storageFolder;
+//    }
+//
+//    /**
+//     * @param storageFolder the storageFolder to set
+//     */
+//    public void setStorageFolder(String storageFolder) {
+//        this.storageFolder = storageFolder;
+//    }
 }
