@@ -25,8 +25,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import static javax.management.Query.value;
 
 /**
  *
@@ -49,16 +51,23 @@ public class Archive_sys_project extends Application {
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         //******
+        Label lbl = new Label ("Start File Archiving ",imageView);
+        lbl.setTranslateX(-50);
+        lbl.setTranslateY(-115);
+        lbl.setFont(Font.font("Cambria", 32));
+        //****
         
-        Label lbl = new Label ("File",imageView);
-        lbl.setTranslateX(-150);
-        lbl.setTranslateY(-40);
+        Label lbl2 = new Label ("Choose Archiving Configuration File  -- >> ");
+        lbl2.setTranslateX(-130);
+        lbl2.setTranslateY(15);
+        lbl2.setFont(Font.font("Cambria", 15));
+           
 //        lbl.setMaxHeight(75);
 //        lbl.setMaxWidth(200);
     //*****    
-        Button button = new Button("Select File");
+        Button button = new Button("Select Configuration File");
         button.setTranslateX(150);
-        button.setTranslateY(-50);
+        button.setTranslateY(15);
         button.setMaxHeight(75);
         button.setMaxWidth(200);
          button.setOnAction(e -> {
@@ -85,6 +94,27 @@ public class Archive_sys_project extends Application {
                 //this.setVisible(false);
             }
         });
+        //**
+        Button opnbtn = new Button("Open Archive");
+        opnbtn.setTranslateX(150);
+        opnbtn.setTranslateY(120);
+        opnbtn.setMaxHeight(75);
+        opnbtn.setMaxWidth(200);
+        
+        opnbtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+               // System.out.println("Hello World!");
+              mainst(); 
+         //       Stage stage = (Stage) newbtn.getScene().getWindow();
+  // do what you have to do
+  primaryStage.close();
+                //this.setVisible(false);
+            }
+        });
+        //*
+        
         
          //*******
 //        btn.setOnAction(new EventHandler<ActionEvent>() {
@@ -106,6 +136,8 @@ public class Archive_sys_project extends Application {
         root.getChildren().add(button);
         root.getChildren().add(lbl);
         root.getChildren().add(newbtn);
+        root.getChildren().add(opnbtn);
+        root.getChildren().add(lbl2);
 //          VBox vBox = new VBox(button);
 //           Scene scene = new Scene(vBox, 960, 600);
         Scene scene = new Scene(root, 600, 400);
@@ -188,6 +220,7 @@ public class Archive_sys_project extends Application {
          tagbtn.setOnAction(e -> {
         //    File selectedDirectory = directoryChooser.showDialog(MainStage);
 
+        tagst();
       //      System.out.println(selectedDirectory.getAbsolutePath());
         });
          //***
@@ -198,7 +231,7 @@ public class Archive_sys_project extends Application {
         ctgbtn.setMaxWidth(95);
          ctgbtn.setOnAction(e -> {
         //    File selectedDirectory = directoryChooser.showDialog(MainStage);
-
+        catst();
       //      System.out.println(selectedDirectory.getAbsolutePath());
         });
          //***
@@ -209,7 +242,7 @@ public class Archive_sys_project extends Application {
         tpcbtn.setMaxWidth(95);
          tpcbtn.setOnAction(e -> {
         //    File selectedDirectory = directoryChooser.showDialog(MainStage);
-
+        tpcst();
       //      System.out.println(selectedDirectory.getAbsolutePath());
         });
          //**
@@ -248,6 +281,7 @@ public class Archive_sys_project extends Application {
          //----
         tpcBox.setPromptText("Topic");
          //*****
+         
          
          TreeItem<String> rootItem = new TreeItem<String> ("Document List");
         rootItem.setExpanded(true);
@@ -308,6 +342,307 @@ public class Archive_sys_project extends Application {
     /**
      * @param args the command line arguments
      */
+    
+    public void catst() /*throws  FileNotFoundException */{
+         
+         Stage categorystage=new Stage();
+   Stage tagstage=new Stage();
+
+        //******
+//        DirectoryChooser directoryChooser = new DirectoryChooser();
+//        directoryChooser.setInitialDirectory(new File("src"));
+//       //****** 
+ 
+        //******
+        
+        
+    //*****    
+        Button button = new Button("Edit");
+        button.setTranslateX(-110);
+        button.setTranslateY(150);
+        button.setMaxHeight(75);
+        button.setMaxWidth(95);
+         button.setOnAction(e -> {
+        //    File selectedDirectory = directoryChooser.showDialog(MainStage);
+
+      //      System.out.println(selectedDirectory.getAbsolutePath());
+        });
+         //********
+         Button newbtn = new Button("Add New");
+        newbtn.setTranslateX(-220);
+        newbtn.setTranslateY(150);
+        newbtn.setMaxHeight(75);
+        newbtn.setMaxWidth(95);
+        
+        newbtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+        //****
+        Button delbtn = new Button("Delete");
+        delbtn.setTranslateX(0);
+        delbtn.setTranslateY(150);
+        delbtn.setMaxHeight(75);
+        delbtn.setMaxWidth(95);
+         delbtn.setOnAction(e -> {
+  
+        });
+         //*******
+       
+         //**
+          Button svbtn = new Button("Save Tag");
+        svbtn.setTranslateX(220);
+        svbtn.setTranslateY(-150);
+        svbtn.setMaxHeight(75);
+        svbtn.setMaxWidth(95);
+         svbtn.setOnAction(e -> {
+      
+        });
+         //**
+         //*****
+         
+         
+         TreeItem<String> rootItem = new TreeItem<String> ("Tag List");
+        rootItem.setExpanded(true);
+        for (int i = 1; i < 6; i++) {
+            TreeItem<String> item = new TreeItem<String> ("Message" + i);            
+            rootItem.getChildren().add(item);
+        }        
+        TreeView<String> tree = new TreeView<String> (rootItem); 
+        tree.setTranslateX(-190);
+        tree.setTranslateY(-20);
+         tree.setMaxHeight(250);
+        tree.setMaxWidth(200);
+         //******
+         TextField  textField = new TextField  ();
+         textField.setTranslateX(50);
+        textField.setTranslateY(-70);
+         textField.setMaxHeight(50);
+        textField.setMaxWidth(250);
+         //*****
+         
+
+       
+        StackPane root = new StackPane();
+     
+//        root.getChildren().add(btn);
+        root.getChildren().add(button);
+      //  root.getChildren().add(lbl);
+        root.getChildren().add(newbtn);
+        root.getChildren().add(delbtn);
+        root.getChildren().add(svbtn);
+        root.getChildren().add(tree);
+        root.getChildren().add(textField);
+
+        Scene scene = new Scene(root, 600, 400);
+        
+       tagstage.setTitle("Tag");
+        tagstage.setScene(scene);
+        tagstage.show();
+    }    
+    
+     public void tpcst() /*throws  FileNotFoundException */{
+            Stage tagstage=new Stage();
+
+        //******
+//        DirectoryChooser directoryChooser = new DirectoryChooser();
+//        directoryChooser.setInitialDirectory(new File("src"));
+//       //****** 
+ 
+        //******
+        
+        
+    //*****    
+        Button button = new Button("Edit");
+        button.setTranslateX(-110);
+        button.setTranslateY(150);
+        button.setMaxHeight(75);
+        button.setMaxWidth(95);
+         button.setOnAction(e -> {
+        //    File selectedDirectory = directoryChooser.showDialog(MainStage);
+
+      //      System.out.println(selectedDirectory.getAbsolutePath());
+        });
+         //********
+         Button newbtn = new Button("Add New");
+        newbtn.setTranslateX(-220);
+        newbtn.setTranslateY(150);
+        newbtn.setMaxHeight(75);
+        newbtn.setMaxWidth(95);
+        
+        newbtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+        //****
+        Button delbtn = new Button("Delete");
+        delbtn.setTranslateX(0);
+        delbtn.setTranslateY(150);
+        delbtn.setMaxHeight(75);
+        delbtn.setMaxWidth(95);
+         delbtn.setOnAction(e -> {
+  
+        });
+         //*******
+       
+         //**
+          Button svbtn = new Button("Save Tag");
+        svbtn.setTranslateX(220);
+        svbtn.setTranslateY(-150);
+        svbtn.setMaxHeight(75);
+        svbtn.setMaxWidth(95);
+         svbtn.setOnAction(e -> {
+      
+        });
+         //**
+         //*****
+         
+         
+         TreeItem<String> rootItem = new TreeItem<String> ("Topic List");
+        rootItem.setExpanded(true);
+        for (int i = 1; i < 6; i++) {
+            TreeItem<String> item = new TreeItem<String> ("Message" + i);            
+            rootItem.getChildren().add(item);
+        }        
+        TreeView<String> tree = new TreeView<String> (rootItem); 
+        tree.setTranslateX(-190);
+        tree.setTranslateY(-20);
+         tree.setMaxHeight(250);
+        tree.setMaxWidth(200);
+         //******
+         TextField  textField = new TextField  ();
+         textField.setTranslateX(50);
+        textField.setTranslateY(-70);
+         textField.setMaxHeight(50);
+        textField.setMaxWidth(250);
+         //*****
+         
+
+       
+        StackPane root = new StackPane();
+     
+//        root.getChildren().add(btn);
+        root.getChildren().add(button);
+      //  root.getChildren().add(lbl);
+        root.getChildren().add(newbtn);
+        root.getChildren().add(delbtn);
+        root.getChildren().add(svbtn);
+        root.getChildren().add(tree);
+        root.getChildren().add(textField);
+
+        Scene scene = new Scene(root, 600, 400);
+        
+       tagstage.setTitle("Tag");
+        tagstage.setScene(scene);
+        tagstage.show();
+    }    
+    
+       public void tagst() /*throws  FileNotFoundException */{
+         
+         Stage tagstage=new Stage();
+
+        //******
+//        DirectoryChooser directoryChooser = new DirectoryChooser();
+//        directoryChooser.setInitialDirectory(new File("src"));
+//       //****** 
+ 
+        //******
+        
+        
+    //*****    
+        Button button = new Button("Edit");
+        button.setTranslateX(-110);
+        button.setTranslateY(150);
+        button.setMaxHeight(75);
+        button.setMaxWidth(95);
+         button.setOnAction(e -> {
+        //    File selectedDirectory = directoryChooser.showDialog(MainStage);
+
+      //      System.out.println(selectedDirectory.getAbsolutePath());
+        });
+         //********
+         Button newbtn = new Button("Add New");
+        newbtn.setTranslateX(-220);
+        newbtn.setTranslateY(150);
+        newbtn.setMaxHeight(75);
+        newbtn.setMaxWidth(95);
+        
+        newbtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+        //****
+        Button delbtn = new Button("Delete");
+        delbtn.setTranslateX(0);
+        delbtn.setTranslateY(150);
+        delbtn.setMaxHeight(75);
+        delbtn.setMaxWidth(95);
+         delbtn.setOnAction(e -> {
+  
+        });
+         //*******
+       
+         //**
+          Button svbtn = new Button("Save Tag");
+        svbtn.setTranslateX(220);
+        svbtn.setTranslateY(-150);
+        svbtn.setMaxHeight(75);
+        svbtn.setMaxWidth(95);
+         svbtn.setOnAction(e -> {
+      
+        });
+         //**
+         //*****
+         
+         
+         TreeItem<String> rootItem = new TreeItem<String> ("Tag List");
+        rootItem.setExpanded(true);
+        for (int i = 1; i < 6; i++) {
+            TreeItem<String> item = new TreeItem<String> ("Message" + i);            
+            rootItem.getChildren().add(item);
+        }        
+        TreeView<String> tree = new TreeView<String> (rootItem); 
+        tree.setTranslateX(-190);
+        tree.setTranslateY(-20);
+         tree.setMaxHeight(250);
+        tree.setMaxWidth(200);
+         //******
+         TextField  textField = new TextField  ();
+         textField.setTranslateX(50);
+        textField.setTranslateY(-70);
+         textField.setMaxHeight(50);
+        textField.setMaxWidth(250);
+         //*****
+         
+
+       
+        StackPane root = new StackPane();
+     
+//        root.getChildren().add(btn);
+        root.getChildren().add(button);
+      //  root.getChildren().add(lbl);
+        root.getChildren().add(newbtn);
+        root.getChildren().add(delbtn);
+        root.getChildren().add(svbtn);
+        root.getChildren().add(tree);
+        root.getChildren().add(textField);
+
+        Scene scene = new Scene(root, 600, 400);
+        
+       tagstage.setTitle("Tag");
+        tagstage.setScene(scene);
+        tagstage.show();
+    }  
+     
     public static void main(String[] args) {
         launch(args);
     }
