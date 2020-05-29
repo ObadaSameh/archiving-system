@@ -5,6 +5,8 @@
  */
 package archive_sys_project;
 
+import archive_sys_project.functions.ViewIntegrationFunctions;
+
 /**
  *
  * @author maibrahim
@@ -76,6 +78,7 @@ public class View extends javax.swing.JFrame {
                 new View().setVisible(true);
             }
         });
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
