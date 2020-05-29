@@ -5,27 +5,49 @@
  */
 package archive_sys_project.entities;
 
+import java.util.List;
+
 /**
  *
  * @author sameh
  */
 public class Topic extends BaseEntity {
 
-    private String storageFolder;
+//    private String storageFolder;
+    @Override
+    public BaseEntity clone() {
+        Topic c = new Topic();
 
-    /**
-     * @return the storageFolder
-     */
-    public String getStorageFolder() {
-        return storageFolder;
+        cloneBaseEntityData(c);
+
+        return c;
     }
 
-    /**
-     * @param storageFolder the storageFolder to set
-     */
-    public void setStorageFolder(String storageFolder) {
-        this.storageFolder = storageFolder;
+    @Override
+    public void serializeProps(List<String> rawData) {
+        super.serializeProps(rawData);
     }
 
-    
+    @Override
+    public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
+        Category c = (instance != null) ? (Category) instance : new Category();
+
+        super.deserializeProps(c, rawData);
+
+        return c;
+    }
+
+//    /**
+//     * @return the storageFolder
+//     */
+//    public String getStorageFolder() {
+//        return storageFolder;
+//    }
+//
+//    /**
+//     * @param storageFolder the storageFolder to set
+//     */
+//    public void setStorageFolder(String storageFolder) {
+//        this.storageFolder = storageFolder;
+//    }
 }

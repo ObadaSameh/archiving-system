@@ -47,8 +47,8 @@ public class Archive_sys_project extends Application {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(new File("src"));
        //****** 
-        FileInputStream input = new FileInputStream("c:/Users/maibrahim/Documents/NetBeansProjects/Archive_sys_project/src/file.png");
-        Image image = new Image(input);
+//        FileInputStream input = new FileInputStream("c:/Users/maibrahim/Documents/NetBeansProjects/Archive_sys_project/src/file.png");
+        Image image = new Image(getClass().getResource("/file.png").toString()); //new Image(input);
         ImageView imageView = new ImageView(image);
         //******
         Label lbl = new Label ("Start File Archiving ",imageView);

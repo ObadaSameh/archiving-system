@@ -5,11 +5,13 @@
  */
 package archive_sys_project.entities;
 
+import java.util.List;
+
 /**
  *
  * @author sameh
  */
-public class BaseEntity  {
+public abstract class BaseEntity {
 
     /**
      * @return the id
@@ -38,11 +40,32 @@ public class BaseEntity  {
     public void setName(String name) {
         this.name = name;
     }
-    
-     private Integer id;
+
+    private Integer id;
     private String name;
+
+    public abstract BaseEntity clone();
+
+    protected void cloneBaseEntityData(BaseEntity newEntity) {
+        newEntity.setId(id);
+        newEntity.setName(name);
+    }
+
+    public void serializeProps(List<String> rawData) {
+        rawData.add(id.toString());
+        rawData.add(name);
+    }
+
+    public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
+        if (instance == null) {
+            throw new RuntimeException("abstract must receive instance from derived classes");
+        }
+
+        instance.setId(Integer.parseInt(rawData.remove(0)));
+        instance.setName(rawData.remove(0));
+        return instance;
+    }
+
     
     
 }
-
-
