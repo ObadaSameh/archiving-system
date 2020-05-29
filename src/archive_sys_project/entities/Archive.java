@@ -36,8 +36,40 @@ public class Archive {
 
     private static Archive loadInternal(Archive archive, List<String> rawData) {
 
+        Category ctr = new Category();
+        Document dtr = new Document();
+        Tag tgr = new Tag();
+        Topic tpr = new Topic();
+
         archive.currentIndex = Integer.parseInt(rawData.remove(0));
 
+        int count;
+
+        count = Integer.parseInt(rawData.remove(0));
+
+        for (int i = 0; i < count; i++) {
+            archive.topics.add((Topic) tpr.deserializeProps(null, rawData));
+        }
+
+        count = Integer.parseInt(rawData.remove(0));
+
+        for (int i = 0; i < count; i++) {
+            archive.categories.add((Category) ctr.deserializeProps(null, rawData));
+        }
+
+        count = Integer.parseInt(rawData.remove(0));
+
+        for (int i = 0; i < count; i++) {
+            archive.tags.add((Tag) tgr.deserializeProps(null, rawData));
+        }
+
+        count = Integer.parseInt(rawData.remove(0));
+
+        for (int i = 0; i < count; i++) {
+            archive.documents.add((Document) dtr.deserializeProps(null, rawData));
+        }
+
+        return archive;
     }
 
     private List<String> saveInternal() {
@@ -65,12 +97,13 @@ public class Archive {
             e.serializeProps(rawData);
         }
 
+        return rawData;
     }
 
     public static Archive fromFile(File file) {
         try {
 
-            Archive archive = new Archive();
+            Archive archive = getNew();
             archive.file = file;
             List<String> s = Files.readAllLines(Paths.get(file.getPath()));
 

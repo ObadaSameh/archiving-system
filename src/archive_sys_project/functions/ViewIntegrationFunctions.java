@@ -100,7 +100,7 @@ public class ViewIntegrationFunctions {
                         return false;
                     }
 
-                    if (tagId != null && d.getTagsIds().contains(tagId)) {
+                     if (tagId != null && d.getTagsIds().contains(tagId)) {
                         return false;
                     }
 
