@@ -66,6 +66,9 @@ public abstract class BaseEntity {
         return instance;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return name; //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
