@@ -124,6 +124,7 @@ public class Archive {
         arc.setTags(new ArrayList<>());
         arc.setDocuments(new ArrayList<>());
 
+        System.out.println("returning new archive");
         return arc;
     }
 
