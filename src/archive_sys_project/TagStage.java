@@ -84,6 +84,7 @@ public class TagStage {
         svbtn.setOnAction(e
                 -> {
             stage.close();
+            DocumentsStage.newStage();
         });
 
         delbtn.setOnAction(e -> {

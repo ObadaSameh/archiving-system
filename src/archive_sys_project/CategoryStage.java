@@ -83,6 +83,7 @@ public class CategoryStage {
         svbtn.setOnAction(e
                 -> {
             stage.close();
+            DocumentsStage.newStage();
         });
 
         delbtn.setOnAction(e -> {
