@@ -66,7 +66,7 @@ public class DocumentsStage {
         Button svbtn = new Button("Save Archive");
 
         delbtn.setOnAction(e -> {
-
+            
         });
 
         tagbtn.setOnAction(e -> {
@@ -90,7 +90,7 @@ public class DocumentsStage {
         });
 
         svbtn.setOnAction(e -> {
-
+            ViewIntegrationFunctions.saveArchive(Mainstage);
         });
 
         ComboBox tagBox = new ComboBox();
