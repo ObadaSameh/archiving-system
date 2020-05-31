@@ -5,6 +5,8 @@
  */
 package archive_sys_project.entities;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class Document extends BaseEntity {
 
         c.setCategoryId(categoryId);
         c.setTopicId(topicId);
-        c.setTagsIds(tagsIds.subList(0, tagsIds.size() - 1));
+        c.setTagsIds((tagsIds == null || tagsIds.size() == 0) ? new ArrayList<>() : tagsIds.subList(0, tagsIds.size()));
         c.setVisibleName(visibleName);
 
         return c;
@@ -51,7 +53,7 @@ public class Document extends BaseEntity {
 
     @Override
     public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
-        Category c = (instance != null) ? (Category) instance : new Category();
+        Document c = (instance != null) ? (Document) instance : new Document();
 
         super.deserializeProps(c, rawData);
 
@@ -65,7 +67,27 @@ public class Document extends BaseEntity {
             tagsIds.add(Integer.parseInt(rawData.remove(0)));
         }
 
+        c.setTagsIds(tagsIds);
+        c.setCategoryId(categoryId);
+        c.setTopicId(topicId);
+
         return c;
+    }
+
+    @Override
+    public String toString() {
+        if (visibleName != null) {
+            return visibleName;
+        }
+
+        String n = getName();
+
+        Path p = Paths.get(n);
+        visibleName = p.getFileName().toString();
+        if (visibleName == null) {
+            visibleName = "";
+        }
+        return visibleName;
     }
 
     /**

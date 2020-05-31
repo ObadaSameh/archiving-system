@@ -82,8 +82,8 @@ public class TopicsStage {
         //**
         svbtn.setOnAction(e
                 -> {
-            stage.close();
             DocumentsStage.newStage();
+            stage.close();
         });
 
         delbtn.setOnAction(e -> {

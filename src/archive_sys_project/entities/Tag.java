@@ -29,7 +29,7 @@ public class Tag extends BaseEntity {
 
     @Override
     public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
-        Category c = (instance != null) ? (Category) instance : new Category();
+        Tag c = (instance != null) ? (Tag) instance : new Tag();
 
         super.deserializeProps(c, rawData);
 

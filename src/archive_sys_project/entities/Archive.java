@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  */
 public class Archive {
 
-    private int currentIndex;
+    private int currentMaxIndex;
     private File file;
     private List<Document> documents;
     private List<Tag> tags;
@@ -41,14 +41,21 @@ public class Archive {
         Tag tgr = new Tag();
         Topic tpr = new Topic();
 
-        archive.currentIndex = Integer.parseInt(rawData.remove(0));
+        archive.currentMaxIndex = Integer.parseInt(rawData.remove(0));
 
         int count;
 
+        if (rawData.remove(0).equals("TOPICS_LIST") == false) {
+            throw new RuntimeException("File read error");
+        }
         count = Integer.parseInt(rawData.remove(0));
 
         for (int i = 0; i < count; i++) {
             archive.topics.add((Topic) tpr.deserializeProps(null, rawData));
+        }
+
+        if (rawData.remove(0).equals("CATEGORIES_LIST") == false) {
+            throw new RuntimeException("File read error");
         }
 
         count = Integer.parseInt(rawData.remove(0));
@@ -57,12 +64,18 @@ public class Archive {
             archive.categories.add((Category) ctr.deserializeProps(null, rawData));
         }
 
+        if (rawData.remove(0).equals("TAGS_LIST") == false) {
+            throw new RuntimeException("File read error");
+        }
         count = Integer.parseInt(rawData.remove(0));
 
         for (int i = 0; i < count; i++) {
             archive.tags.add((Tag) tgr.deserializeProps(null, rawData));
         }
 
+        if (rawData.remove(0).equals("DOCUMENTS_LIST") == false) {
+            throw new RuntimeException("File read error");
+        }
         count = Integer.parseInt(rawData.remove(0));
 
         for (int i = 0; i < count; i++) {
@@ -75,23 +88,27 @@ public class Archive {
     private List<String> saveInternal() {
         List<String> rawData = new ArrayList<>();
 
-        rawData.add(currentIndex + "");
+        rawData.add(currentMaxIndex + "");
 
+        rawData.add("TOPICS_LIST");
         rawData.add(topics.size() + "");
         for (BaseEntity e : topics) {
             e.serializeProps(rawData);
         }
 
+        rawData.add("CATEGORIES_LIST");
         rawData.add(categories.size() + "");
         for (BaseEntity e : categories) {
             e.serializeProps(rawData);
         }
 
+        rawData.add("TAGS_LIST");
         rawData.add(tags.size() + "");
         for (BaseEntity e : tags) {
             e.serializeProps(rawData);
         }
 
+        rawData.add("DOCUMENTS_LIST");
         rawData.add(documents.size() + "");
         for (BaseEntity e : documents) {
             e.serializeProps(rawData);
@@ -148,7 +165,7 @@ public class Archive {
         String str = "";
 
         for (String s : rawData) {
-            str += s;
+            str += s + "\n";
         }
 
         writeStringToFile(f, str);
@@ -175,21 +192,21 @@ public class Archive {
     /**
      * @return the currentIndex
      */
-    public int getCurrentIndex() {
-        return currentIndex;
+    public int getCurrentMaxIndex() {
+        return currentMaxIndex;
     }
 
     public int getNextId() {
-        currentIndex++;
-        return currentIndex + 1;
+        currentMaxIndex++;
+        return currentMaxIndex;
 
     }
 
     /**
      * @param currentIndex the currentIndex to set
      */
-    private void setCurrentIndex(int currentIndex) {
-        this.currentIndex = currentIndex;
+    private void setCurrentMaxIndex(int currentMaxIndex) {
+        this.currentMaxIndex = currentMaxIndex;
     }
 
     /**

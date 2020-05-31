@@ -30,7 +30,7 @@ public class Topic extends BaseEntity {
 
     @Override
     public BaseEntity deserializeProps(BaseEntity instance, List<String> rawData) {
-        Category c = (instance != null) ? (Category) instance : new Category();
+        Topic c = (instance != null) ? (Topic) instance : new Topic();
 
         super.deserializeProps(c, rawData);
 

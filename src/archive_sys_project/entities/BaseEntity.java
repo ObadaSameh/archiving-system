@@ -52,6 +52,7 @@ public abstract class BaseEntity {
     }
 
     public void serializeProps(List<String> rawData) {
+        rawData.add(getClass().getSimpleName());
         rawData.add(id.toString());
         rawData.add(name);
     }
@@ -61,6 +62,9 @@ public abstract class BaseEntity {
             throw new RuntimeException("abstract must receive instance from derived classes");
         }
 
+        if (getClass().getSimpleName().equals(rawData.remove(0)) == false) {
+            throw new RuntimeException("entity load error");
+        }
         instance.setId(Integer.parseInt(rawData.remove(0)));
         instance.setName(rawData.remove(0));
         return instance;

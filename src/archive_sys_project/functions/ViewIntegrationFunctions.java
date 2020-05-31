@@ -10,6 +10,7 @@ import archive_sys_project.entities.Category;
 import archive_sys_project.entities.Document;
 import archive_sys_project.entities.Tag;
 import archive_sys_project.entities.Topic;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -96,11 +97,11 @@ public class ViewIntegrationFunctions {
                         return false;
                     }
 
-                    if (categoryId != null && !Objects.equals(d.getCategoryId(), topicId)) {
+                    if (categoryId != null && !Objects.equals(d.getCategoryId(), categoryId)) {
                         return false;
                     }
 
-                     if (tagId != null && d.getTagsIds().contains(tagId)) {
+                    if (tagId != null && !d.getTagsIds().contains(tagId)) {
                         return false;
                     }
 
@@ -113,7 +114,7 @@ public class ViewIntegrationFunctions {
 
     public static String getdocumentContent(Document doc) {
 
-        List<String> lines;
+        List<String> lines = new ArrayList<>();
         try {
             lines = Files.readAllLines(Paths.get(doc.getName()));
         } catch (IOException ex) {
@@ -123,7 +124,7 @@ public class ViewIntegrationFunctions {
 
         String content = "";
         for (String l : lines) {
-            content += l;
+            content += l + "\n";
         }
 
         return content;
